@@ -49,9 +49,7 @@
       z-index: 2;
     }
 
-    /* ========================================================
-       1. ROYAL VELVET PROSCENIUM CURTAIN & KNOT
-       ======================================================== */
+    /* 1. ROYAL VELVET PROSCENIUM CURTAIN & KNOT */
     #proscenium {
       position: fixed;
       inset: 0;
@@ -62,7 +60,7 @@
       background: radial-gradient(circle at center, #1b0205 0%, #050001 100%);
       overflow: hidden;
       perspective: 1600px;
-      transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1) 1s, visibility 1.2s 1s;
+      transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.8s, visibility 1.2s 0.8s;
     }
 
     .curtain-panel {
@@ -107,7 +105,7 @@
     }
 
     .knot-cord-wrap:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
       filter: drop-shadow(0 0 35px rgba(250, 233, 168, 0.75));
     }
 
@@ -128,8 +126,8 @@
     }
 
     .bow-center-seal {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #fff7db, var(--gold-24k) 60%, #463107);
       border: 1.5px solid #2f2003;
@@ -138,7 +136,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 14px;
       color: #7a1220;
     }
 
@@ -214,7 +212,6 @@
     #proscenium.opened .knot-cord-wrap {
       opacity: 0;
       transform: translateY(50px) scale(0.4);
-      transition: all 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045);
       pointer-events: none;
     }
     #proscenium.opened {
@@ -223,9 +220,7 @@
       pointer-events: none;
     }
 
-    /* ========================================================
-       2. MOBILE-FIRST SCENIC VIEWPORT & STAGGER REVEAL
-       ======================================================== */
+    /* 2. SCENIC VIEWPORT */
     .viewport-scene {
       position: relative;
       z-index: 3;
@@ -286,14 +281,6 @@
       background: radial-gradient(circle, #2a050b 0%, #0d0103 100%);
     }
 
-    .regal-crest::before {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border: 1px dashed var(--gold-24k);
-      border-radius: 50%;
-    }
-
     .regal-crest span {
       font-family: 'Cinzel Decorative', serif;
       font-size: 1.5rem;
@@ -330,7 +317,6 @@
       color: var(--gold-24k);
       line-height: 1.1;
       margin-bottom: 0.8rem;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .petition-prose {
@@ -343,9 +329,6 @@
       padding: 0 0.5rem;
     }
 
-    /* ========================================================
-       SECTION 2: ANIMATED NAMES
-       ======================================================== */
     .names-monolith {
       text-align: center;
       margin: 4.5rem 0;
@@ -393,9 +376,7 @@
       display: block;
     }
 
-    /* ========================================================
-       SECTION 3: SEND A HEART INTERACTION
-       ======================================================== */
+    /* HEART BLESSING */
     .blessing-sanctuary {
       text-align: center;
       margin: 4rem 0;
@@ -445,9 +426,7 @@
       100% { opacity: 0; transform: translate(var(--drift-x), -520px) scale(1.4) rotate(var(--spin)); }
     }
 
-    /* ========================================================
-       SECTION 4: COUNTDOWN & CALENDAR (MOBILE OPTIMIZED)
-       ======================================================== */
+    /* COUNTDOWN & CALENDAR */
     .chronometer-vault {
       text-align: center;
       margin: 4.5rem 0;
@@ -535,9 +514,7 @@
       filter: brightness(1.1);
     }
 
-    /* ========================================================
-       SECTION 5: ARCHITECTURAL EVENT ITINERARY (MOBILE OPTIMIZED)
-       ======================================================== */
+    /* ITINERARY */
     .events-panoply {
       margin: 5rem 0;
     }
@@ -559,16 +536,9 @@
       align-items: flex-start;
       gap: 1.5rem;
       box-shadow: 0 16px 45px rgba(0,0,0,0.45);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
       overflow: hidden;
     }
 
-    .event-lounge-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 55px rgba(0,0,0,0.6);
-    }
-
-    /* 1. Haldi */
     .lounge-haldi {
       background: radial-gradient(circle at 10% 20%, #301804 0%, #170a01 100%);
       border: 1.5px solid #d49e39;
@@ -577,7 +547,6 @@
     .lounge-haldi .event-name { color: #fbe096; }
     .lounge-haldi .btn-venue { background: #d49e39; color: #170a01; }
 
-    /* 2. Wedding */
     .lounge-wedding {
       background: radial-gradient(circle at 10% 20%, #2b060d 0%, #0d0104 100%);
       border: 1.5px solid var(--gold-24k);
@@ -587,7 +556,6 @@
     .lounge-wedding .event-name { color: #ffffff; }
     .lounge-wedding .btn-venue { background: var(--gold-foil); color: #1a0206; }
 
-    /* 3. Reception */
     .lounge-reception {
       background: radial-gradient(circle at 10% 20%, #450711 0%, #120104 100%);
       border: 1.5px solid var(--gold-24k);
@@ -650,64 +618,45 @@
       border-radius: 30px;
       font-weight: 700;
       white-space: nowrap;
-      transition: transform 0.25s ease, filter 0.25s ease;
       box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
 
-    .btn-venue:hover {
-      transform: scale(1.02);
-      filter: brightness(1.1);
-    }
-
     /* ========================================================
-       SECTION 6: 3-PHOTO EDITORIAL GALLERY (CLEAN MOBILE STACK)
+       SECTION 6: RESPONSIVE PHOTO GALLERY
        ======================================================== */
     .gallery-pavilion {
       margin: 5.5rem 0 4.5rem;
       text-align: center;
+      width: 100%;
     }
 
     .gallery-three-stack {
       display: flex;
       flex-direction: column;
-      gap: 2.2rem;
-      max-width: 580px;
+      gap: 2.5rem;
+      max-width: 520px;
       margin: 3rem auto 0;
+      width: 100%;
     }
 
     .gallery-card {
       position: relative;
-      border-radius: 120px 120px 22px 22px;
+      border-radius: 110px 110px 22px 22px;
       overflow: hidden;
-      border: 1.5px solid var(--gold-24k);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+      border: 1.8px solid var(--gold-24k);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.65);
       background: #140205;
-      aspect-ratio: 9/13;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 26px 60px rgba(216, 178, 87, 0.35);
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      display: block;
     }
 
     .gallery-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       display: block;
-    }
-
-    .gallery-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(99, 13, 23, 0.05) 0%,
-        transparent 65%,
-        rgba(10, 1, 3, 0.55) 100%
-      );
-      pointer-events: none;
     }
 
     .broadcast-altar {
@@ -720,35 +669,6 @@
       text-align: center;
       position: relative;
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    }
-
-    .broadcast-beacon-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background: rgba(255, 0, 0, 0.22);
-      border: 1px solid rgba(255, 80, 80, 0.6);
-      padding: 5px 16px;
-      border-radius: 18px;
-      margin-bottom: 1.2rem;
-    }
-
-    .beacon-spark-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ff3333;
-      box-shadow: 0 0 10px #ff3333;
-      animation: beaconFlash 1.4s infinite;
-    }
-
-    @keyframes beaconFlash {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.8); }
     }
 
     .broadcast-title {
@@ -785,17 +705,8 @@
       padding: 1.05rem 2rem;
       border-radius: 35px;
       box-shadow: 0 6px 24px rgba(0,0,0,0.45);
-      transition: transform 0.2s ease, filter 0.2s ease;
     }
 
-    .btn-transmission-link:hover {
-      transform: scale(1.03);
-      filter: brightness(1.1);
-    }
-
-    /* ========================================================
-       SECTION 7: FINAL BENEDICTION
-       ======================================================== */
     .benediction-court {
       text-align: center;
       margin-top: 5rem;
@@ -830,38 +741,6 @@
       text-shadow: 0 2px 10px rgba(0,0,0,0.6);
     }
 
-    .floating-audio-widget {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: #140205;
-      border: 1.5px solid var(--gold-24k);
-      border-radius: 50px;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      transition: all 0.3s ease;
-    }
-
-    .floating-audio-widget:hover {
-      transform: scale(1.05);
-      border-color: var(--gold-bright);
-    }
-
-    .audio-icon-glyph { font-size: 1.1rem; color: var(--gold-24k); }
-    .audio-text-label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #faf7f2;
-    }
-
-    /* Desktop Enhancement */
     @media (min-width: 769px) {
       .viewport-scene { padding: 6rem 1.8rem; }
       .event-lounge-card {
@@ -869,25 +748,16 @@
         align-items: center;
         padding: 3.2rem 2.8rem;
       }
-      .btn-venue {
-        width: auto;
-      }
+      .btn-venue { width: auto; }
       .gallery-three-stack {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        max-width: 1000px;
+        max-width: 1040px;
         gap: 2rem;
         align-items: center;
       }
       .gallery-card:nth-child(2) {
-        aspect-ratio: 9/14.5;
         transform: translateY(-16px);
-      }
-      .gallery-card:nth-child(2):hover {
-        transform: translateY(-22px) scale(1.03);
-      }
-      .digits-matrix {
-        gap: 1.4rem;
       }
     }
   </style>
@@ -911,7 +781,6 @@
         <div class="tassel-string">
           <div class="bead-wire"></div>
           <div class="metal-bead"></div>
-          <div class="metal-bead"></div>
           <div class="bullion-tassel"></div>
         </div>
         <div class="tassel-string">
@@ -928,11 +797,6 @@
     <source src="music.mp3" type="audio/mpeg">
     <source src="music.mp3" type="audio/mp3">
   </audio>
-
-  <div class="floating-audio-widget" onclick="toggleAudioSystem()">
-    <span class="audio-icon-glyph" id="audio-glyph">♪</span>
-    <span class="audio-text-label" id="audio-label">Play Music</span>
-  </div>
 
   <main class="viewport-scene">
 
@@ -1067,6 +931,7 @@
       </div>
     </section>
 
+    <!-- COUPLE GALLERY WITH LIVE TESTED URLS -->
     <section class="gallery-pavilion scene-reveal">
       <div style="font-family:'Pinyon Script', cursive; font-size: clamp(2.4rem, 7.5vw, 2.8rem); color: var(--gold-bright);">Moments of Grace</div>
       <h3 style="font-family:'Cinzel Decorative', serif; font-size: clamp(1.4rem, 4.5vw, 1.85rem); color: #ffffff; letter-spacing: 1.5px;">The Couple</h3>
@@ -1074,36 +939,33 @@
       <div class="gallery-three-stack">
         <div class="gallery-card">
           <img 
-            src="WhatsApp Image 2026-09-03 at 10.21.02 PM.jpeg" 
+            src="photo3.jpeg?v=royal3" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
+            loading="eager"
           >
-          <div class="gallery-scrim"></div>
         </div>
 
         <div class="gallery-card">
           <img 
-            src="WhatsApp Image 2026-08-31 at 11.52.26 PM.jpeg" 
+            src="photo2.jpeg?v=royal3" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
+            loading="eager"
           >
-          <div class="gallery-scrim"></div>
         </div>
 
         <div class="gallery-card">
           <img 
-            src="WhatsApp Image 2026-09-03 at 10.21.04 PM.jpeg" 
+            src="photo1.jpeg?v=royal3" 
             alt="Wedding Rings" 
             class="gallery-img"
+            loading="eager"
           >
-          <div class="gallery-scrim"></div>
         </div>
       </div>
 
       <div class="broadcast-altar">
-        <div class="broadcast-beacon-pill">
-          <span class="beacon-spark-dot"></span> Live Broadcast
-        </div>
         <h4 class="broadcast-title">Live Wedding Ceremony</h4>
         <p class="broadcast-exposition">
           For beloved family and friends joining us across the globe, witness our sacred vows in real-time as we unite before Almighty God.
@@ -1123,9 +985,7 @@
   </main>
 
   <script>
-    // ========================================================
-    // 1. FAIL-SAFE ROMANTIC SOUNDTRACK SYNTHESIS ENGINE
-    // ========================================================
+    // 1. FAIL-SAFE SOUNDTRACK ENGINE
     let audioCtx = null;
     let synthPlaying = false;
     let synthInterval = null;
@@ -1142,14 +1002,11 @@
         }
 
         synthPlaying = true;
-        document.getElementById('audio-label').innerText = "Pause";
-        document.getElementById('audio-glyph').innerText = "❚❚";
-
         const chords = [
-          [146.83, 293.66, 369.99, 440.00, 587.33], // D Major
-          [110.00, 220.00, 277.18, 329.63, 440.00], // A Major
-          [123.47, 246.94, 293.66, 369.99, 440.00], // B Minor
-          [98.00, 196.00, 246.94, 293.66, 392.00]   // G Major
+          [146.83, 293.66, 369.99, 440.00, 587.33],
+          [110.00, 220.00, 277.18, 329.63, 440.00],
+          [123.47, 246.94, 293.66, 369.99, 440.00],
+          [98.00, 196.00, 246.94, 293.66, 392.00]
         ];
 
         let chordStep = 0;
@@ -1177,14 +1034,12 @@
 
             osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, noteTime);
-
             gain.gain.setValueAtTime(0.0001, noteTime);
             gain.gain.exponentialRampToValueAtTime(0.045, noteTime + 0.05);
             gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 2.4);
 
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-
             osc.start(noteTime);
             osc.stop(noteTime + 2.5);
           });
@@ -1195,18 +1050,13 @@
         arpeggiate();
         if (synthInterval) clearInterval(synthInterval);
         synthInterval = setInterval(arpeggiate, 2400);
-      } catch(e) {
-        console.log("Audio synthesis notice:", e);
-      }
+      } catch(e) {}
     }
 
     function playAudioMaster() {
       if (streamAudio) {
         streamAudio.volume = 0.85;
-        streamAudio.play().then(() => {
-          document.getElementById('audio-label').innerText = "Pause";
-          document.getElementById('audio-glyph').innerText = "❚❚";
-        }).catch(() => {
+        streamAudio.play().catch(() => {
           startSyntheticMusic();
         });
       } else {
@@ -1216,31 +1066,10 @@
 
     function unveilRoyalExperience() {
       playAudioMaster();
-      const proscenium = document.getElementById('proscenium');
-      proscenium.classList.add('opened');
+      document.getElementById('proscenium').classList.add('opened');
     }
 
-    function toggleAudioSystem() {
-      const label = document.getElementById('audio-label');
-      const glyph = document.getElementById('audio-glyph');
-
-      if (streamAudio && !streamAudio.paused) {
-        streamAudio.pause();
-        label.innerText = "Play Music";
-        glyph.innerText = "♪";
-      } else if (synthPlaying) {
-        synthPlaying = false;
-        if (synthInterval) clearInterval(synthInterval);
-        label.innerText = "Play Music";
-        glyph.innerText = "♪";
-      } else {
-        playAudioMaster();
-      }
-    }
-
-    // ========================================================
     // 2. AMBIENT FALLING PETALS CANVAS
-    // ========================================================
     const canvas = document.getElementById('atmosphere-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -1263,7 +1092,6 @@
         this.reset();
         this.y = Math.random() * height;
       }
-
       reset() {
         this.x = Math.random() * width;
         this.y = -30;
@@ -1276,24 +1104,18 @@
         this.flipSpeed = Math.random() * 0.03 + 0.01;
         this.color = petalTones[Math.floor(Math.random() * petalTones.length)];
       }
-
       update() {
         this.y += this.speedY;
         this.x += Math.sin(this.angle) * 0.75 + this.speedX;
         this.angle += this.angularSpeed;
         this.flip += this.flipSpeed;
-
-        if (this.y > height + 30 || this.x < -30 || this.x > width + 30) {
-          this.reset();
-        }
+        if (this.y > height + 30 || this.x < -30 || this.x > width + 30) this.reset();
       }
-
       draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         ctx.scale(1, Math.sin(this.flip));
-
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, 0, 0, this.size * 1.35);
@@ -1305,7 +1127,6 @@
     }
 
     const petals = Array.from({ length: 32 }, () => new PetalParticle());
-
     function renderAtmosphere() {
       ctx.clearRect(0, 0, width, height);
       for (let i = 0; i < petals.length; i++) {
@@ -1316,26 +1137,17 @@
     }
     renderAtmosphere();
 
-    // ========================================================
-    // 3. SCROLL REVEAL (INTERSECTION OBSERVER)
-    // ========================================================
+    // 3. SCROLL REVEAL OBSERVER
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.scene-reveal').forEach((el) => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.scene-reveal').forEach((el) => observer.observe(el));
 
-    // ========================================================
     // 4. FLOATING LOVE BURST ENGINE
-    // ========================================================
     const loveGlyphs = ['❤️', '💖', '✨', '💛', '💕', '💍'];
-
     function triggerLoveBurst(e) {
       const btn = document.getElementById('blessing-btn');
       btn.style.transform = 'scale(1.25)';
@@ -1351,43 +1163,25 @@
 
       heart.style.left = `${startX - 16}px`;
       heart.style.top = `${startY - 20}px`;
-
-      const driftX = (Math.random() - 0.5) * 220;
-      const spin = (Math.random() - 0.5) * 80;
-      heart.style.setProperty('--drift-x', `${driftX}px`);
-      heart.style.setProperty('--spin', `${spin}deg`);
+      heart.style.setProperty('--drift-x', `${(Math.random() - 0.5) * 220}px`);
+      heart.style.setProperty('--spin', `${(Math.random() - 0.5) * 80}deg`);
 
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 2500);
+      setTimeout(() => heart.remove(), 2500);
     }
 
-    // ========================================================
-    // 5. LIVE COUNTDOWN ENGINE
-    // ========================================================
+    // 5. COUNTDOWN ENGINE
     const weddingMoment = new Date("September 23, 2026 10:00:00 GMT+0530").getTime();
-
     function refreshCountdown() {
       const current = new Date().getTime();
       const delta = weddingMoment - current;
-
       if (delta > 0) {
-        const days = Math.floor(delta / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((delta % (1000 * 60)) / 1000);
-
-        document.getElementById("v-days").innerText = String(days).padStart(2, '0');
-        document.getElementById("v-hours").innerText = String(hours).padStart(2, '0');
-        document.getElementById("v-mins").innerText = String(mins).padStart(2, '0');
-        document.getElementById("v-secs").innerText = String(secs).padStart(2, '0');
-      } else {
-        document.querySelector(".countdown-vault-title").innerText = "Celebrating Our Wedding Today!";
+        document.getElementById("v-days").innerText = String(Math.floor(delta / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById("v-hours").innerText = String(Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById("v-mins").innerText = String(Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById("v-secs").innerText = String(Math.floor((delta % (1000 * 60)) / 1000)).padStart(2, '0');
       }
     }
-
     setInterval(refreshCountdown, 1000);
     refreshCountdown();
   </script>
