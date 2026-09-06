@@ -519,51 +519,60 @@
       margin: 5rem 0;
     }
 
+/* ITINERARY */
+    .events-panoply {
+      margin: 5rem 0;
+    }
+
     .events-grid {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      max-width: 820px;
+      gap: 2.2rem;
+      max-width: 840px;
       margin: 2.5rem auto 0;
     }
 
     .event-lounge-card {
       position: relative;
-      border-radius: 22px;
-      padding: 2.2rem 1.5rem;
+      border-radius: 24px;
+      padding: 2.4rem 1.7rem;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 1.5rem;
-      box-shadow: 0 16px 45px rgba(0,0,0,0.45);
+      background: radial-gradient(circle at 10% 20%, rgba(45, 6, 12, 0.65) 0%, rgba(14, 2, 4, 0.85) 100%);
+      border: 1.5px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.6);
       overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .event-lounge-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(216, 178, 87, 0.35);
+      border-color: var(--gold-bright);
     }
 
     .lounge-haldi {
-      background: radial-gradient(circle at 10% 20%, #301804 0%, #170a01 100%);
       border: 1.5px solid #d49e39;
     }
     .lounge-haldi .event-badge { background: rgba(212, 158, 57, 0.2); color: #fbe096; border: 1px solid #d49e39; }
     .lounge-haldi .event-name { color: #fbe096; }
-    .lounge-haldi .btn-venue { background: #d49e39; color: #170a01; }
 
     .lounge-wedding {
-      background: radial-gradient(circle at 10% 20%, #2b060d 0%, #0d0104 100%);
       border: 1.5px solid var(--gold-24k);
       box-shadow: 0 20px 50px rgba(216, 178, 87, 0.25);
     }
     .lounge-wedding .event-badge { background: rgba(216, 178, 87, 0.2); color: var(--gold-bright); border: 1px solid var(--gold-24k); }
     .lounge-wedding .event-name { color: #ffffff; }
-    .lounge-wedding .btn-venue { background: var(--gold-foil); color: #1a0206; }
 
     .lounge-reception {
-      background: radial-gradient(circle at 10% 20%, #450711 0%, #120104 100%);
       border: 1.5px solid var(--gold-24k);
     }
     .lounge-reception .event-badge { background: rgba(216, 178, 87, 0.2); color: var(--gold-bright); border: 1px solid var(--gold-24k); }
     .lounge-reception .event-name { color: #ffd97d; }
-    .lounge-reception .event-address { color: #e5dad6; }
-    .lounge-reception .btn-venue { background: var(--gold-foil); color: #1a0206; }
 
     .event-info { width: 100%; }
 
@@ -573,22 +582,22 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 700;
-      padding: 5px 14px;
-      border-radius: 16px;
+      padding: 6px 16px;
+      border-radius: 18px;
       display: inline-block;
       margin-bottom: 0.8rem;
     }
 
     .event-name {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.6rem, 5vw, 2rem);
+      font-size: clamp(1.65rem, 5vw, 2.15rem);
       font-weight: 700;
       margin-bottom: 0.4rem;
     }
 
     .event-clock {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.2rem, 3.8vw, 1.4rem);
+      font-size: clamp(1.22rem, 3.8vw, 1.48rem);
       font-weight: 600;
       color: var(--gold-bright);
       margin-bottom: 0.6rem;
@@ -618,9 +627,16 @@
       border-radius: 30px;
       font-weight: 700;
       white-space: nowrap;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      background: var(--gold-foil);
+      color: #1a0206;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      transition: transform 0.25s ease, filter 0.25s ease;
     }
 
+    .btn-venue:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
     /* ========================================================
        SECTION 6: RESPONSIVE PHOTO GALLERY
        ======================================================== */
