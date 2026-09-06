@@ -9,47 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
 
   <style>
-/* GENTLE SCROLL INDICATOR FOR GUESTS */
-.scroll-hint-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin: 2.2rem auto 0.5rem;
-  cursor: pointer;
-  user-select: none;
-  animation: bounceHint 2.4s ease-in-out infinite;
-  transition: opacity 0.5s ease;
-}
-
-.scroll-hint-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 3.5px;
-  text-transform: uppercase;
-  color: var(--gold-bright);
-  font-weight: 500;
-  opacity: 0.85;
-}
-
-.scroll-hint-arrow {
-  width: 20px;
-  height: 20px;
-  border-bottom: 2px solid var(--gold-primary);
-  border-right: 2px solid var(--gold-primary);
-  transform: rotate(45deg);
-  opacity: 0.75;
-}
-
-@keyframes bounceHint {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateY(10px);
-    opacity: 1;
-  }
 }
     :root {
       --night-velvet: #0a0103;
@@ -370,11 +329,6 @@
       margin: 0 auto;
       padding: 0 0.5rem;
     }
-    <!-- Scroll prompt for guests -->
-      <div class="scroll-hint-wrapper" onclick="document.querySelector('.names-monolith').scrollIntoView({behavior: 'smooth'})">
-        <span class="scroll-hint-text">Scroll to View Invitation</span>
-        <div class="scroll-hint-arrow"></div>
-      </div>
 
     .names-monolith {
       text-align: center;
