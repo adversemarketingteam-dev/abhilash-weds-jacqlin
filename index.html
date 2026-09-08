@@ -828,10 +828,11 @@
     </div>
   </div>
 
-  <!-- Audio Element (Direct Local Relative Path) -->
+  <!-- Dual Audio Engine (Local MP3 + Web Stream Fallback) -->
   <audio id="external-audio" loop preload="auto" playsinline>
-    <source src="./music.mp3" type="audio/mpeg">
     <source src="music.mp3" type="audio/mpeg">
+    <source src="./music.mp3" type="audio/mpeg">
+    <source src="https://ia801503.us.archive.org/15/items/i-get-to-love-you-acoustic-instrumental/I%20Get%20To%20Love%20You%20Instrumental.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Floating Audio Widget -->
@@ -973,36 +974,42 @@
       </div>
     </section>
 
-    <!-- COUPLE GALLERY -->
+    <!-- SELF-HEALING COUPLE GALLERY (Tries all common image extensions automatically) -->
     <section class="gallery-pavilion scene-reveal">
       <div style="font-family:'Pinyon Script', cursive; font-size: clamp(2.4rem, 7.5vw, 2.8rem); color: var(--gold-bright);">Moments of Grace</div>
       <h3 style="font-family:'Cinzel Decorative', serif; font-size: clamp(1.4rem, 4.5vw, 1.85rem); color: #ffffff; letter-spacing: 1.5px;">The Couple</h3>
 
       <div class="gallery-three-stack">
+        <!-- Photo 3 (Staircase) -->
         <div class="gallery-card">
           <img 
             src="photo3.jpeg" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
             loading="eager"
+            onerror="tryNextImg(this, ['photo3.jpg', 'photo3.png', 'photo3.JPEG', 'WhatsApp Image 2026-09-03 at 10.21.02 PM.jpeg'])"
           >
         </div>
 
+        <!-- Photo 2 (Forehead Kiss) -->
         <div class="gallery-card">
           <img 
             src="photo2.jpeg" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
             loading="eager"
+            onerror="tryNextImg(this, ['photo2.jpg', 'photo2.png', 'photo2.JPEG', 'WhatsApp Image 2026-08-31 at 11.52.26 PM.jpeg'])"
           >
         </div>
 
+        <!-- Photo 1 (Wedding Rings) -->
         <div class="gallery-card">
           <img 
             src="photo1.jpeg" 
             alt="Wedding Rings" 
             class="gallery-img"
             loading="eager"
+            onerror="tryNextImg(this, ['photo1.jpg', 'photo1.png', 'photo1.JPEG', 'WhatsApp Image 2026-09-03 at 10.21.04 PM.jpeg'])"
           >
         </div>
       </div>
@@ -1028,14 +1035,25 @@
 
   <script>
     // ========================================================
-    // BULLETPROOF HARDWARE-SYNCHRONOUS AUDIO ENGINE
+    // 1. DYNAMIC IMAGE RESOLVER (Tests all name variations)
+    // ========================================================
+    function tryNextImg(img, fallbacks) {
+      if (!img.dataset.step) img.dataset.step = 0;
+      let step = parseInt(img.dataset.step);
+      if (step < fallbacks.length) {
+        img.dataset.step = step + 1;
+        img.src = fallbacks[step];
+      }
+    }
+
+    // ========================================================
+    // 2. BULLETPROOF HARDWARE-SYNCHRONOUS AUDIO ENGINE
     // ========================================================
     let audioCtx = null;
     let isSynthRunning = false;
     let synthInterval = null;
     const streamAudio = document.getElementById('external-audio');
 
-    // Instantly initializes the audio context during the user's active touch event
     function initAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -1055,7 +1073,7 @@
       if (glyph) glyph.innerText = isPlaying ? "❚❚" : "♪";
     }
 
-    // Native Web Audio Synthesizer: Runs completely offline & avoids all network errors
+    // Native Web Audio Synthesizer: 100% offline & hardware-direct
     function startSyntheticMusic() {
       initAudioContext();
       if (!audioCtx) return;
@@ -1076,7 +1094,6 @@
         const chord = chords[step % chords.length];
         const now = audioCtx.currentTime;
 
-        // Warm Sub-Bass string note
         const bassOsc = audioCtx.createOscillator();
         const bassGain = audioCtx.createGain();
         bassOsc.type = 'triangle';
@@ -1091,7 +1108,6 @@
         bassOsc.start(now);
         bassOsc.stop(now + 3.0);
 
-        // Acoustic Arpeggio Notes
         chord.slice(1).forEach((freq, idx) => {
           const noteTime = now + (idx * 0.28);
           const osc = audioCtx.createOscillator();
@@ -1136,7 +1152,7 @@
           playPromise.then(() => {
             updateAudioButton(true);
           }).catch((err) => {
-            console.warn("Falling back to native Web Audio synthesizer:", err);
+            console.warn("Starting native synthesizer audio:", err);
             startSyntheticMusic();
           });
         } else {
@@ -1164,11 +1180,12 @@
       }
     }
 
-    // Touch unlock listeners to ensure mobile browser permissions
     window.addEventListener('touchstart', initAudioContext, { once: true });
     window.addEventListener('click', initAudioContext, { once: true });
 
-    // 2. AMBIENT FALLING PETALS CANVAS
+    // ========================================================
+    // 3. AMBIENT FALLING PETALS CANVAS
+    // ========================================================
     const canvas = document.getElementById('atmosphere-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -1236,7 +1253,9 @@
     }
     renderAtmosphere();
 
-    // 3. SCROLL REVEAL OBSERVER
+    // ========================================================
+    // 4. SCROLL REVEAL OBSERVER
+    // ========================================================
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add('in-view');
@@ -1245,7 +1264,9 @@
 
     document.querySelectorAll('.scene-reveal').forEach((el) => observer.observe(el));
 
-    // 4. FLOATING LOVE BURST ENGINE
+    // ========================================================
+    // 5. FLOATING LOVE BURST ENGINE
+    // ========================================================
     const loveGlyphs = ['❤️', '💖', '✨', '💛', '💕', '💍'];
     function triggerLoveBurst(e) {
       const btn = document.getElementById('blessing-btn');
@@ -1269,7 +1290,9 @@
       setTimeout(() => heart.remove(), 2500);
     }
 
-    // 5. COUNTDOWN ENGINE
+    // ========================================================
+    // 6. COUNTDOWN ENGINE
+    // ========================================================
     const weddingMoment = new Date("September 23, 2026 10:00:00 GMT+0530").getTime();
     function refreshCountdown() {
       const current = new Date().getTime();
