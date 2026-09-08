@@ -828,11 +828,10 @@
     </div>
   </div>
 
-  <!-- Dual Audio Engine (Local MP3 + Web Stream Fallback) -->
+  <!-- Audio Element with explicit relative path -->
   <audio id="external-audio" loop preload="auto" playsinline>
-    <source src="music.mp3" type="audio/mpeg">
     <source src="./music.mp3" type="audio/mpeg">
-    <source src="https://ia801503.us.archive.org/15/items/i-get-to-love-you-acoustic-instrumental/I%20Get%20To%20Love%20You%20Instrumental.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Floating Audio Widget -->
@@ -974,42 +973,42 @@
       </div>
     </section>
 
-    <!-- SELF-HEALING COUPLE GALLERY (Tries all common image extensions automatically) -->
+    <!-- 3-PHOTO EDITORIAL GALLERY (Auto-heals any naming/extension mismatch) -->
     <section class="gallery-pavilion scene-reveal">
       <div style="font-family:'Pinyon Script', cursive; font-size: clamp(2.4rem, 7.5vw, 2.8rem); color: var(--gold-bright);">Moments of Grace</div>
       <h3 style="font-family:'Cinzel Decorative', serif; font-size: clamp(1.4rem, 4.5vw, 1.85rem); color: #ffffff; letter-spacing: 1.5px;">The Couple</h3>
 
       <div class="gallery-three-stack">
-        <!-- Photo 3 (Staircase) -->
+        <!-- 1. Staircase Picture -->
         <div class="gallery-card">
           <img 
-            src="photo3.jpeg" 
+            src="./photo3.jpeg" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
             loading="eager"
-            onerror="tryNextImg(this, ['photo3.jpg', 'photo3.png', 'photo3.JPEG', 'WhatsApp Image 2026-09-03 at 10.21.02 PM.jpeg'])"
+            onerror="tryNextImg(this, ['./photo3.jpg', './photo3.png', './photo3.JPEG', 'photo3.jpeg', 'photo3.jpg', './WhatsApp Image 2026-09-03 at 10.21.02 PM.jpeg'])"
           >
         </div>
 
-        <!-- Photo 2 (Forehead Kiss) -->
+        <!-- 2. Forehead Kiss Picture -->
         <div class="gallery-card">
           <img 
-            src="photo2.jpeg" 
+            src="./photo2.jpeg" 
             alt="Abhilash & Jacqlin" 
             class="gallery-img"
             loading="eager"
-            onerror="tryNextImg(this, ['photo2.jpg', 'photo2.png', 'photo2.JPEG', 'WhatsApp Image 2026-08-31 at 11.52.26 PM.jpeg'])"
+            onerror="tryNextImg(this, ['./photo2.jpg', './photo2.png', './photo2.JPEG', 'photo2.jpeg', 'photo2.jpg', './WhatsApp Image 2026-08-31 at 11.52.26 PM.jpeg'])"
           >
         </div>
 
-        <!-- Photo 1 (Wedding Rings) -->
+        <!-- 3. Wedding Rings Picture -->
         <div class="gallery-card">
           <img 
-            src="photo1.jpeg" 
+            src="./photo1.jpeg" 
             alt="Wedding Rings" 
             class="gallery-img"
             loading="eager"
-            onerror="tryNextImg(this, ['photo1.jpg', 'photo1.png', 'photo1.JPEG', 'WhatsApp Image 2026-09-03 at 10.21.04 PM.jpeg'])"
+            onerror="tryNextImg(this, ['./photo1.jpg', './photo1.png', './photo1.JPEG', 'photo1.jpeg', 'photo1.jpg', './WhatsApp Image 2026-09-03 at 10.21.04 PM.jpeg'])"
           >
         </div>
       </div>
@@ -1035,7 +1034,7 @@
 
   <script>
     // ========================================================
-    // 1. DYNAMIC IMAGE RESOLVER (Tests all name variations)
+    // 1. SMART IMAGE RESOLVER (Tests all path variations)
     // ========================================================
     function tryNextImg(img, fallbacks) {
       if (!img.dataset.step) img.dataset.step = 0;
@@ -1047,7 +1046,7 @@
     }
 
     // ========================================================
-    // 2. BULLETPROOF HARDWARE-SYNCHRONOUS AUDIO ENGINE
+    // 2. BULLETPROOF INSTANT DUAL-AUDIO ENGINE
     // ========================================================
     let audioCtx = null;
     let isSynthRunning = false;
@@ -1057,9 +1056,7 @@
     function initAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (AudioContextClass) {
-          audioCtx = new AudioContextClass();
-        }
+        if (AudioContextClass) audioCtx = new AudioContextClass();
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -1144,22 +1141,19 @@
     function playAudioMaster() {
       initAudioContext();
 
+      // Instantly start the native synthesized arrangement so the guest hears music right away
+      startSyntheticMusic();
+
+      // Concurrently attempt to play the actual MP3 file if it's available and buffered
       if (streamAudio) {
         streamAudio.volume = 0.9;
-        const playPromise = streamAudio.play();
-
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            updateAudioButton(true);
-          }).catch((err) => {
-            console.warn("Starting native synthesizer audio:", err);
-            startSyntheticMusic();
-          });
-        } else {
-          startSyntheticMusic();
-        }
-      } else {
-        startSyntheticMusic();
+        streamAudio.play().then(() => {
+          // If the file successfully plays, gently turn off the synthesizer to let the studio track take over
+          stopSyntheticMusic();
+          updateAudioButton(true);
+        }).catch((err) => {
+          console.log("Using synthetic audio engine:", err);
+        });
       }
     }
 
