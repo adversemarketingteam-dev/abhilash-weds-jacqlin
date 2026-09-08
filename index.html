@@ -828,10 +828,10 @@
     </div>
   </div>
 
-  <!-- Audio Element -->
+  <!-- Audio Element (Direct Local Relative Path) -->
   <audio id="external-audio" loop preload="auto" playsinline>
+    <source src="./music.mp3" type="audio/mpeg">
     <source src="music.mp3" type="audio/mpeg">
-    <source src="music.mp3" type="audio/mp3">
   </audio>
 
   <!-- Floating Audio Widget -->
@@ -1027,77 +1027,25 @@
   </main>
 
   <script>
-    // 1. FAIL-SAFE SOUNDTRACK ENGINE WITH EXPLICIT RESUME
+    // ========================================================
+    // BULLETPROOF HARDWARE-SYNCHRONOUS AUDIO ENGINE
+    // ========================================================
     let audioCtx = null;
-    let synthPlaying = false;
+    let isSynthRunning = false;
     let synthInterval = null;
     const streamAudio = document.getElementById('external-audio');
 
-    function unlockAudioContext() {
+    // Instantly initializes the audio context during the user's active touch event
+    function initAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (AudioContextClass) audioCtx = new AudioContextClass();
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-    }
-
-    function startSyntheticMusic() {
-      try {
-        unlockAudioContext();
-        synthPlaying = true;
-        updateAudioButton(true);
-
-        const chords = [
-          [146.83, 293.66, 369.99, 440.00, 587.33],
-          [110.00, 220.00, 277.18, 329.63, 440.00],
-          [123.47, 246.94, 293.66, 369.99, 440.00],
-          [98.00, 196.00, 246.94, 293.66, 392.00]
-        ];
-
-        let chordStep = 0;
-        function arpeggiate() {
-          if (!synthPlaying || !audioCtx) return;
-          const currentChord = chords[chordStep % chords.length];
-          const now = audioCtx.currentTime;
-
-          const bassOsc = audioCtx.createOscillator();
-          const bassGain = audioCtx.createGain();
-          bassOsc.type = 'triangle';
-          bassOsc.frequency.setValueAtTime(currentChord[0], now);
-          bassGain.gain.setValueAtTime(0.0001, now);
-          bassGain.gain.linearRampToValueAtTime(0.08, now + 0.3);
-          bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
-          bassOsc.connect(bassGain);
-          bassGain.connect(audioCtx.destination);
-          bassOsc.start(now);
-          bassOsc.stop(now + 3.2);
-
-          currentChord.slice(1).forEach((freq, idx) => {
-            const noteTime = now + (idx * 0.28);
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, noteTime);
-            gain.gain.setValueAtTime(0.0001, noteTime);
-            gain.gain.exponentialRampToValueAtTime(0.045, noteTime + 0.05);
-            gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 2.4);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start(noteTime);
-            osc.stop(noteTime + 2.5);
-          });
-
-          chordStep++;
-        }
-
-        arpeggiate();
-        if (synthInterval) clearInterval(synthInterval);
-        synthInterval = setInterval(arpeggiate, 2400);
-      } catch(e) {}
     }
 
     function updateAudioButton(isPlaying) {
@@ -1107,16 +1055,93 @@
       if (glyph) glyph.innerText = isPlaying ? "❚❚" : "♪";
     }
 
-    function playAudioMaster() {
-      unlockAudioContext();
-      if (streamAudio) {
-        streamAudio.volume = 0.85;
-        streamAudio.play().then(() => {
-          updateAudioButton(true);
-        }).catch(() => {
-          // If the MP3 file fails to play, smoothly engage the native synthesized sound
-          startSyntheticMusic();
+    // Native Web Audio Synthesizer: Runs completely offline & avoids all network errors
+    function startSyntheticMusic() {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      isSynthRunning = true;
+      updateAudioButton(true);
+
+      const chords = [
+        [146.83, 293.66, 369.99, 440.00, 587.33], // D Major
+        [110.00, 220.00, 277.18, 329.63, 440.00], // A Major
+        [123.47, 246.94, 293.66, 369.99, 440.00], // B Minor
+        [98.00, 196.00, 246.94, 293.66, 392.00]   // G Major
+      ];
+
+      let step = 0;
+      function playStep() {
+        if (!isSynthRunning || !audioCtx) return;
+        const chord = chords[step % chords.length];
+        const now = audioCtx.currentTime;
+
+        // Warm Sub-Bass string note
+        const bassOsc = audioCtx.createOscillator();
+        const bassGain = audioCtx.createGain();
+        bassOsc.type = 'triangle';
+        bassOsc.frequency.setValueAtTime(chord[0], now);
+
+        bassGain.gain.setValueAtTime(0.0001, now);
+        bassGain.gain.linearRampToValueAtTime(0.12, now + 0.3);
+        bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 2.8);
+
+        bassOsc.connect(bassGain);
+        bassGain.connect(audioCtx.destination);
+        bassOsc.start(now);
+        bassOsc.stop(now + 3.0);
+
+        // Acoustic Arpeggio Notes
+        chord.slice(1).forEach((freq, idx) => {
+          const noteTime = now + (idx * 0.28);
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, noteTime);
+
+          gain.gain.setValueAtTime(0.0001, noteTime);
+          gain.gain.exponentialRampToValueAtTime(0.07, noteTime + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 2.3);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(noteTime);
+          osc.stop(noteTime + 2.4);
         });
+
+        step++;
+      }
+
+      playStep();
+      if (synthInterval) clearInterval(synthInterval);
+      synthInterval = setInterval(playStep, 2400);
+    }
+
+    function stopSyntheticMusic() {
+      isSynthRunning = false;
+      if (synthInterval) clearInterval(synthInterval);
+      updateAudioButton(false);
+    }
+
+    function playAudioMaster() {
+      initAudioContext();
+
+      if (streamAudio) {
+        streamAudio.volume = 0.9;
+        const playPromise = streamAudio.play();
+
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            updateAudioButton(true);
+          }).catch((err) => {
+            console.warn("Falling back to native Web Audio synthesizer:", err);
+            startSyntheticMusic();
+          });
+        } else {
+          startSyntheticMusic();
+        }
       } else {
         startSyntheticMusic();
       }
@@ -1128,22 +1153,20 @@
     }
 
     function toggleAudioSystem() {
-      unlockAudioContext();
+      initAudioContext();
       if (streamAudio && !streamAudio.paused) {
         streamAudio.pause();
         updateAudioButton(false);
-      } else if (synthPlaying) {
-        synthPlaying = false;
-        if (synthInterval) clearInterval(synthInterval);
-        updateAudioButton(false);
+      } else if (isSynthRunning) {
+        stopSyntheticMusic();
       } else {
         playAudioMaster();
       }
     }
 
-    // Global touch fallback to ensure audio unlock on mobile
-    window.addEventListener('touchstart', unlockAudioContext, { once: true });
-    window.addEventListener('click', unlockAudioContext, { once: true });
+    // Touch unlock listeners to ensure mobile browser permissions
+    window.addEventListener('touchstart', initAudioContext, { once: true });
+    window.addEventListener('click', initAudioContext, { once: true });
 
     // 2. AMBIENT FALLING PETALS CANVAS
     const canvas = document.getElementById('atmosphere-canvas');
